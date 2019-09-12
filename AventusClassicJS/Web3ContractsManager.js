@@ -46,7 +46,7 @@ class Web3ContractsManager {
   }
 
   async getAvtManager() {
-    if (!this.avtManager) this.avtManager = await this.getImplementation('IAVTManager-0.1');
+    if (!this.avtManager) this.avtManager = await this.getImplementation('IAVTManager-1.0');
     return this.avtManager;
   }
 
