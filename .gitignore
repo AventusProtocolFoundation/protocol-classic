@@ -1,0 +1,5 @@
+.node-xmlhttprequest-sync-*
+api/storage.json
+build/
+node_modules/
+package-lock.json

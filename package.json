@@ -1,0 +1,20 @@
+{
+  "name": "protocol-classic",
+  "version": "1.0.0",
+  "description": "The Aventus Classic Protocol",
+  "author": "Aventus Protocol Foundation",
+  "license": "GPL-3.0-only",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AventusProtocolFoundation/protocol-classic.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AventusProtocolFoundation/protocol-classic/issues"
+  },
+  "homepage": "https://github.com/AventusProtocolFoundation/protocol-classic#readme",
+  "dependencies": {
+    "eip55": "1.0.3",
+    "truffle-hdwallet-provider": "1.0.10",
+    "web3": "1.0.0-beta.37"
+  }
+}
