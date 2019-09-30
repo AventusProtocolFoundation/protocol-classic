@@ -1,28 +1,21 @@
 const common = require('../migrations/common.js');
 const erc20 = require('../api/erc20.js');
-const AVTFaucet = require('../api/AVTFaucet.js');
 const Web3Provider = require('../scripts/Web3Provider.js');
 const Web3 = require('web3');
 
 class Web3ContractsManager {
 
-  initialise(_networkType) {
-    if (_networkType == null || _networkType == "")
-      _networkType = process.env.ETH_truffleNetwork;
-
-    this.networkType = _networkType;
-
-    console.log('Connecting to network:', this.networkType);
-
+  initialise(_network) {
     if (typeof web3 !== 'undefined') {
       console.log('Using injected web3'); // From Metamask, or similar.
       return;
     }
 
-    if (this.networkType.startsWith('rinkeby') || this.networkType.startsWith('main')) {
+    if (_network.startsWith('rinkeby') || _network.startsWith('main')) {
       this.provider = Web3Provider.getWalletProvider();
-    } else if (this.networkType.startsWith('http')) {
-      this.provider = new Web3.providers.HttpProvider(this.networkType);
+      this.parameters.gasPrice = 20e9; // 20 GWei
+    } else if (_network.startsWith('http')) {
+      this.provider = new Web3.providers.HttpProvider(_network);
     } else {
       process.exit(1);
     }
@@ -38,7 +31,7 @@ class Web3ContractsManager {
   async getStorage() {
     if (!this.aventusStorage) {
       const storageDescriptor = await common.getStorageContractDescriptor(this.networkType);
-      this.storageAddress = storageDescriptor.address;
+      this.storageAddress = (this.networkType === 'main') ? MAINNET_STORAGE_ADDRESS : storageDescriptor.address;
       this.aventusStorage = new web3.eth.Contract(storageDescriptor.abi, this.storageAddress);
     }
     return this.aventusStorage;
@@ -50,17 +43,6 @@ class Web3ContractsManager {
       this.avtERC20 = new web3.eth.Contract(erc20.abi, avtAddress);
     }
     return this.avtERC20;
-  }
-
-  async getAvtFaucet() {
-    const avtFaucetAddressGanache = '0xaC5b759bDF8E951d41FA1914e1a2F07E1497A07d';
-    const avtFaucetAddressRinkeby = '0x3D125E619955623d463Cf1a62A316356bB3b1C2D';
-    const avtFaucetAddress = (this.networkType.startsWith('rinkeby')) ? avtFaucetAddressRinkeby : avtFaucetAddressGanache;
-
-    if (!this.avtFaucet) {
-      this.avtFaucet = new web3.eth.Contract(AVTFaucet.abi, avtFaucetAddress);
-    }
-    return this.avtFaucet;
   }
 
   async getAvtManager() {

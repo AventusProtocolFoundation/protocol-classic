@@ -1,7 +1,6 @@
 const AventusStorage = artifacts.require('AventusStorage');
-const AVTContractForTesting = artifacts.require('AVTContractForTesting');
-const AVTFaucet = artifacts.require('AVTFaucet');
 const AVTManager = artifacts.require('AVTManager');
+const IERC20 = artifacts.require('IERC20');
 
 class TruffleContractsManager {
 
@@ -21,11 +20,6 @@ class TruffleContractsManager {
   async getAVTERC20() {
     if (!this.avtERC20) this.avtERC20 = await AVTContractForTesting.deployed().contract;
     return this.avtERC20;
-  }
-
-  async getAvtFaucet() {
-    if (!this.avtFaucet) this.avtFaucet = await AVTFaucet.deployed().contract;
-    return this.avtFaucet;
   }
 
   async getAvtManager() {
