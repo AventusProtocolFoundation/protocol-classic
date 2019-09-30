@@ -84,9 +84,7 @@ async function doDeployAVTManager(_deployer, _storage) {
 
 async function doDeployAVTFaucet(_deployer, _storage) {
   if (!deployAVTFaucet) return;
-  console.log("deploying faucet");
   await common.deploy(_deployer, AVTFaucet, _storage.address);
-  console.log("deployed faucet");
 }
 
 async function doDeployMembersManager(_deployer, _storage) {

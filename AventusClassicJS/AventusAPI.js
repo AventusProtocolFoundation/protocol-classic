@@ -11,9 +11,13 @@ class AventusAPI {
       gasPrice: 10e9  // 10 GWei
     };
 
+    if (this.networkType.startsWith('rinkeby') || this.networkType.startsWith('main'))
+      this.parameters.gasPrice = 20e9; // 20 GWei
+
     this.aventusStorage = await this.contractsManager.getStorage(this.networkType);
     this.avtERC20 = await this.contractsManager.getAVTERC20();
     this.avtManager = await this.contractsManager.getAvtManager();
+    this.avtFaucet = await this.contractsManager.getAvtFaucet();
   }
 
   saveParameters() {
