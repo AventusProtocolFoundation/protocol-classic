@@ -2,7 +2,7 @@ const Web3ContractsManager = require('../AventusClassicJS/Web3ContractsManager.j
 const AventusAPI = require('../AventusClassicJS/AventusAPI.js');
 
 async function main() {
-  console.log('Starting AVT Reference App');
+  console.log('Initialising...');
   const contractsManager = new Web3ContractsManager();
   await contractsManager.initialise('rinkeby');
   const aventusApi = new AventusAPI();
