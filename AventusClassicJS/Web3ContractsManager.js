@@ -13,7 +13,6 @@ class Web3ContractsManager {
 
     if (_network.startsWith('rinkeby') || _network.startsWith('main')) {
       this.provider = Web3Provider.getWalletProvider();
-      this.parameters.gasPrice = 20e9; // 20 GWei
     } else if (_network.startsWith('http')) {
       this.provider = new Web3.providers.HttpProvider(_network);
     } else {
@@ -30,8 +29,9 @@ class Web3ContractsManager {
 
   async getStorage() {
     if (!this.aventusStorage) {
-      const storageDescriptor = await common.getStorageContractDescriptor(this.networkType);
-      this.storageAddress = (this.networkType === 'main') ? MAINNET_STORAGE_ADDRESS : storageDescriptor.address;
+      const networkType = await web3.eth.net.getNetworkType()
+      const storageDescriptor = await common.getStorageContractDescriptor(networkType);
+      this.storageAddress = storageDescriptor.address;
       this.aventusStorage = new web3.eth.Contract(storageDescriptor.abi, this.storageAddress);
     }
     return this.aventusStorage;

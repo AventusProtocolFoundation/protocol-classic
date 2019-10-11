@@ -24,6 +24,10 @@ class AventusAPI {
     this.parameters = Object.assign({}, this.savedParameters);
   }
 
+  hash() {
+    return web3.utils.soliditySha3(...arguments);
+  }
+
   tearDown() {
     this.contractsManager.tearDown();
   }
