@@ -9,6 +9,7 @@ This is the Classic form of the Aventus Protocol.
 # Rinkeby changes since deployment
 
 2019-11-20: Event onSale time has no restrictions - it can be set to any time in the future.
+- MinimumEventReportingPeriod was [reduced to zero](https://rinkeby.etherscan.io/tx/0xec98dabcffb961db5c4e2e09ffee21496883cf54919fa7e8ec3642da0a03dc50)
 - This enables testing of ticket sales on Rinkeby immediately after event creation
 
 2019-10-07: AVT deposits for events on Rinkeby have been reduced to be inline with the faucet drip:
